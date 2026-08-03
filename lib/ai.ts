@@ -71,7 +71,7 @@ const DEFAULTS: Record<string, { tiers: Record<Quality, string[]>; baseUrl: stri
     tiers: {
       fast:     ['llama3.1-8b'],
       balanced: ['gpt-oss-120b', 'llama3.1-8b'],
-      best:     ['qwen-3-235b-a22b-instruct-2507', 'gpt-oss-120b'],
+      best:     ['llama-3.3-70b', 'gpt-oss-120b'],
     },
   },
   together: {
@@ -106,8 +106,8 @@ const DEFAULTS: Record<string, { tiers: Record<Quality, string[]>; baseUrl: stri
     keyEnv: 'NVIDIA',
     tiers: {
       fast:     ['microsoft/phi-4-mini-instruct'],
-      balanced: ['qwen/qwen2.5-72b-instruct', 'nvidia/llama-3.3-nemotron-super-49b-v1'],
-      best:     ['meta/llama-3.1-405b-instruct', 'mistralai/mistral-large-2-instruct'],
+      balanced: ['qwen/qwen2.5-72b-instruct', 'meta/llama-3.1-70b-instruct'],
+      best:     ['meta/llama-3.3-70b-instruct', 'meta/llama-3.1-70b-instruct'],
     },
   },
   kimi: {
@@ -281,6 +281,7 @@ function allFreeExhausted(): boolean {
 }
 
 function sendExhaustionAlert(tried: string[]) {
+  if (process.env.TELEGRAM_NOTIFICATIONS_DISABLED === 'true') return
   const token  = process.env.TELEGRAM_BOT_TOKEN
   const chatId = process.env.TELEGRAM_ALERT_CHAT ?? process.env.TELEGRAM_CHAT_ID
   if (!token || !chatId) return
