@@ -173,6 +173,15 @@ const OLLAMA_TIERS: Record<Quality, string[]> = {
   best:     ['qwen3:14b', 'gemma3:27b', 'llama3.3:latest'],
 }
 
+// llama.cpp local tiers (llama-server, OpenAI-compat /v1, no API key)
+// Model name is whatever gguf was loaded at server startup — not selectable per-request,
+// so all tiers point at the same placeholder; server owner controls actual model via CLI.
+const LLAMACPP_TIERS: Record<Quality, string[]> = {
+  fast:     ['local'],
+  balanced: ['local'],
+  best:     ['local'],
+}
+
 // Anthropic (special — uses SDK not openai-compat)
 const CLAUDE_TIERS: Record<Quality, string> = {
   fast:     'claude-haiku-4-5-20251001',
@@ -182,7 +191,7 @@ const CLAUDE_TIERS: Record<Quality, string> = {
 
 // Default provider order — overridable entirely via Edge Config `fallback_order`
 const DEFAULT_ORDER = [
-  'ollama',
+  'ollama', 'llamacpp',
   'groq', 'gemini', 'cerebras', 'together',
   'openrouter',
   'mistral', 'nvidia', 'kimi', 'deepseek',
@@ -258,7 +267,7 @@ function getKeys(envPrefix: string): string[] {
 // Tracks which providers are rate-limited/exhausted and when they'll recover.
 // Cooldown prevents hammering an exhausted provider on every request.
 const FREE_PROVIDERS = new Set([
-  'ollama', 'groq', 'gemini', 'cerebras', 'together', 'openrouter', 'mistral', 'nvidia',
+  'ollama', 'llamacpp', 'groq', 'gemini', 'cerebras', 'together', 'openrouter', 'mistral', 'nvidia',
 ])
 const PAID_PROVIDERS = new Set(['kimi', 'deepseek', 'perplexity', 'xai', 'cohere', 'openai', 'anthropic'])
 const EXHAUSTED_UNTIL = new Map<string, number>()  // provider → timestamp when cooldown expires
@@ -372,6 +381,18 @@ async function callOllama(q: Quality, system: string, msgs: Msg[], max: number) 
   throw new Error('Ollama: no model responded')
 }
 
+async function callLlamaCpp(q: Quality, system: string, msgs: Msg[], max: number) {
+  const host = process.env.LLAMACPP_HOST
+  if (!host) throw new Error('LLAMACPP_HOST not set')
+  for (const model of LLAMACPP_TIERS[q]) {
+    try {
+      const text = await withTimeout(callOAICompat(`${host}/v1`, 'llama.cpp', '', model, system, msgs, max), `llama.cpp/${model}`)
+      if (text) { console.log(`[AI] llama.cpp/${model}`); return { text, model } }
+    } catch (e: any) { console.warn(`[AI] llama.cpp/${model}: ${e.message?.slice(0, 60)}`); continue }
+  }
+  throw new Error('llama.cpp: no model responded')
+}
+
 // ── Generic OpenAI-compat provider ───────────────────────────────────────────
 async function callGeneric(
   providerId: string, q: Quality,
@@ -444,6 +465,8 @@ export async function callAI(
 
       if (id === 'ollama') {
         result = await callOllama(quality, system, messages, maxTokens)
+      } else if (id === 'llamacpp') {
+        result = await callLlamaCpp(quality, system, messages, maxTokens)
       } else if (id === 'anthropic') {
         result = await callAnthropic(quality, system, messages, maxTokens, ec)
       } else {
@@ -507,6 +530,7 @@ export async function getProviderStatus(): Promise<Record<string, { hasKey: bool
   const status: Record<string, { hasKey: boolean; models: string[] }> = {}
   for (const id of order) {
     if (id === 'ollama') { status[id] = { hasKey: !!process.env.OLLAMA_HOST, models: OLLAMA_TIERS.balanced }; continue }
+    if (id === 'llamacpp') { status[id] = { hasKey: !!process.env.LLAMACPP_HOST, models: LLAMACPP_TIERS.balanced }; continue }
     if (id === 'anthropic') { status[id] = { hasKey: !!getKeys('ANTHROPIC').length, models: [CLAUDE_TIERS.balanced] }; continue }
     const def = DEFAULTS[id]
     if (!def) continue
