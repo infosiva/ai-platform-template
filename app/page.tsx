@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Sparkles, Upload, Palette, Download, ChevronDown, ChevronUp, ThumbsUp, ThumbsDown, Home } from 'lucide-react'
+import { MagneticButton } from "@infosiva/shared-ui/modern";
 
 // ── Design styles ────────────────────────────────────────────
 const DESIGN_STYLES = [
@@ -220,8 +221,10 @@ function HomeNavbar() {
           <a href="/visualise" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500 }}>Design</a>
           <a href="#how" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500 }}>How it works</a>
           <a href="#pricing" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500 }}>Pricing</a>
-          <a href="/visualise" className="btn-rose" style={{ fontSize: 13, padding: '9px 20px' }}>
-            Try free
+          <a href="/visualise" style={{ textDecoration: 'none' }}>
+            <MagneticButton className="btn-rose" style={{ background: undefined, color: undefined, fontSize: 13, padding: '9px 20px' }}>
+              Try free
+            </MagneticButton>
           </a>
         </div>
       </div>
