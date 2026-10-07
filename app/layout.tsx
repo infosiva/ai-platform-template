@@ -32,7 +32,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <meta name="google-adsense-account" content="ca-pub-REPLACE_WITH_PUBLISHER_ID" />
+        <meta name="google-adsense-account" content="ca-pub-4237294630161176" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4237294630161176"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <Script
           id="structured-data"
           type="application/ld+json"
@@ -53,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main style={{ position: 'relative', zIndex: 10 }}>
           <MotionProvider>{children}</MotionProvider>
         </main>
-        <Script defer data-site="homecanvas.app" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
+        <Script defer data-site="homecanvas.app" src="/t.js" strategy="afterInteractive" />
         <FloatingChatWrapper />
       </body>
     </html>
