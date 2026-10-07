@@ -51,7 +51,7 @@ const DEFAULTS: Record<string, { tiers: Record<Quality, string[]>; baseUrl: stri
     baseUrl: 'https://api.groq.com/openai/v1',
     keyEnv: 'GROQ',
     tiers: {
-      fast:     ['qwen/qwen3.8-27b', 'gemma2-9b-it'],
+      fast:     ['qwen/qwen3.8-27b', 'openai/gpt-oss-20b'],
       balanced: ['openai/gpt-oss-20b', 'qwen/qwen3.8-27b'],
       best:     ['openai/gpt-oss-20b', 'qwen/qwen3.8-27b'],
     },
@@ -105,9 +105,9 @@ const DEFAULTS: Record<string, { tiers: Record<Quality, string[]>; baseUrl: stri
     baseUrl: 'https://integrate.api.nvidia.com/v1',
     keyEnv: 'NVIDIA',
     tiers: {
-      fast:     ['microsoft/phi-4-mini-instruct'],
-      balanced: ['qwen/qwen2.5-72b-instruct', 'meta/llama-3.1-70b-instruct'],
-      best:     ['meta/llama-3.3-70b-instruct', 'meta/llama-3.1-70b-instruct'],
+      fast:     ['nvidia/nemotron-3-super-120b-a12b'],
+      balanced: ['moonshotai/kimi-k3', 'nvidia/nemotron-3-super-120b-a12b'],
+      best:     ['moonshotai/kimi-k3', 'nvidia/nemotron-3-super-120b-a12b'],
     },
   },
   kimi: {
