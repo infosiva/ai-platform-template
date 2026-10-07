@@ -170,7 +170,7 @@ function DesignSummaryCard() {
   return (
     <div style={{ background: '#fff', border: '1px solid rgba(225,29,72,0.15)', borderRadius: 12, padding: '16px 20px', marginTop: 12 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-        <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: '#e11d48', textTransform: 'uppercase' }}>AI Design Summary</span>
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#be123c', textTransform: 'uppercase' }}>AI Design Summary</span>
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#e11d48', display: 'inline-block', animation: 'pulse 2s ease-in-out infinite' }} />
       </div>
       <AnimatePresence mode="wait">
@@ -203,13 +203,13 @@ function HomeNavbar() {
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      transition: 'all 300ms',
+      transition: 'background 300ms, border-color 300ms',
       background: scrolled ? 'rgba(250,250,249,0.92)' : 'transparent',
       backdropFilter: scrolled ? 'blur(20px)' : 'none',
       borderBottom: scrolled ? '1px solid rgba(0,0,0,0.07)' : 'none',
     }}>
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', minHeight: 44 }}>
           <span style={{ width: 28, height: 28, borderRadius: 8, background: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Home size={14} color="#fff" />
           </span>
@@ -217,10 +217,10 @@ function HomeNavbar() {
             Home<span style={{ color: '#e11d48' }}>Canvas</span>
           </span>
         </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <a href="/visualise" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500 }}>Design</a>
-          <a href="#how" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500 }}>How it works</a>
-          <a href="#pricing" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500 }}>Pricing</a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <a href="/visualise" className="hc-navlink" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500, display: 'inline-flex', alignItems: 'center', minHeight: 44 }}>Design</a>
+          <a href="#how" className="hc-navlink" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500, display: 'inline-flex', alignItems: 'center', minHeight: 44 }}>How it works</a>
+          <a href="#pricing" className="hc-navlink" style={{ fontSize: 13, color: '#4a4541', textDecoration: 'none', fontWeight: 500, display: 'inline-flex', alignItems: 'center', minHeight: 44 }}>Pricing</a>
           <a href="/visualise" style={{ textDecoration: 'none' }}>
             <MagneticButton className="btn-rose" style={{ background: undefined, color: undefined, fontSize: 13, padding: '9px 20px' }}>
               Try free
@@ -293,10 +293,10 @@ function FeedbackSection() {
     <div style={{ background: '#fff', border: '1px solid var(--border-s)', borderRadius: 16, padding: '28px', maxWidth: 480, margin: '0 auto' }}>
       <p style={{ textAlign: 'center', color: 'var(--ink-2)', fontSize: 15, fontWeight: 500, margin: '0 0 16px' }}>Was this page helpful?</p>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginBottom: 16 }}>
-        <button onClick={() => setVote('up')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 20px', borderRadius: 10, border: `1.5px solid ${vote === 'up' ? '#e11d48' : 'var(--border-m)'}`, background: vote === 'up' ? '#fce8ea' : 'transparent', color: vote === 'up' ? '#e11d48' : 'var(--ink-2)', cursor: 'pointer', fontWeight: 600, fontSize: 14, transition: 'all 160ms' }}>
+        <button onClick={() => setVote('up')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 20px', borderRadius: 10, border: `1.5px solid ${vote === 'up' ? '#e11d48' : 'var(--border-m)'}`, background: vote === 'up' ? '#fce8ea' : 'transparent', color: vote === 'up' ? '#be123c' : 'var(--ink-2)', minHeight: 44, cursor: 'pointer', fontWeight: 600, fontSize: 14, transition: 'background 160ms, border-color 160ms, color 160ms' }}>
           <ThumbsUp size={15} /> Yes
         </button>
-        <button onClick={() => setVote('down')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 20px', borderRadius: 10, border: `1.5px solid ${vote === 'down' ? '#e11d48' : 'var(--border-m)'}`, background: vote === 'down' ? '#fce8ea' : 'transparent', color: vote === 'down' ? '#e11d48' : 'var(--ink-2)', cursor: 'pointer', fontWeight: 600, fontSize: 14, transition: 'all 160ms' }}>
+        <button onClick={() => setVote('down')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 20px', borderRadius: 10, border: `1.5px solid ${vote === 'down' ? '#e11d48' : 'var(--border-m)'}`, background: vote === 'down' ? '#fce8ea' : 'transparent', color: vote === 'down' ? '#be123c' : 'var(--ink-2)', minHeight: 44, cursor: 'pointer', fontWeight: 600, fontSize: 14, transition: 'background 160ms, border-color 160ms, color 160ms' }}>
           <ThumbsDown size={15} /> Not really
         </button>
       </div>
@@ -323,12 +323,12 @@ export default function HomePage() {
       <div style={{ paddingTop: 56 }} />
 
       {/* ── Hero — split layout ── */}
-      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '72px 24px 56px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, alignItems: 'center', position: 'relative', zIndex: 10 }}>
+      <section style={{ maxWidth: 1100, margin: '0 auto', padding: 'clamp(8px, 2vw, 24px) 20px 56px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, alignItems: 'center', position: 'relative', zIndex: 10 }}>
 
         {/* Left — hero text + form */}
         <div>
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <span className="badge-rose" style={{ marginBottom: 20, display: 'inline-flex' }}>
+            <span className="badge-rose" style={{ marginBottom: 12, display: 'inline-flex' }}>
               <Sparkles size={11} />
               AI interior design — free to try
             </span>
@@ -341,23 +341,21 @@ export default function HomePage() {
             style={{
               fontFamily: "'Outfit', sans-serif",
               fontWeight: 900,
-              fontSize: 'clamp(36px, 5.5vw, 64px)',
+              fontSize: 'clamp(30px, 4.4vw, 52px)',
               lineHeight: 1.06,
               letterSpacing: '-0.04em',
               color: 'var(--ink-1)',
-              margin: '0 0 20px',
+              margin: '0 0 14px',
             }}
           >
-            See your space<br />
-            <span style={{ color: '#e11d48' }}>transformed</span><br />
-            before you lift<br />a finger
+            See your space <span style={{ color: '#be123c' }}>transformed</span> before you lift a finger
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.18, duration: 0.5 }}
-            style={{ color: 'var(--ink-2)', fontSize: 17, lineHeight: 1.65, marginBottom: 32, maxWidth: 420 }}
+            style={{ color: 'var(--ink-2)', fontSize: 16, lineHeight: 1.55, marginBottom: 18, maxWidth: 440 }}
           >
             Describe your room. AI generates a full design concept — furniture, colour palette, layout — in seconds. No designer needed.
           </motion.p>
@@ -367,9 +365,9 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.26, duration: 0.5 }}
-            style={{ background: '#fff', border: '1px solid var(--border-s)', borderRadius: 20, padding: '24px', boxShadow: '0 4px 24px rgba(0,0,0,0.07)' }}
+            style={{ background: '#fff', border: '1px solid var(--border-s)', borderRadius: 20, padding: '16px 20px', boxShadow: '0 4px 24px rgba(0,0,0,0.07)' }}
           >
-            <div style={{ marginBottom: 16 }}>
+            <div style={{ marginBottom: 10 }}>
               <label style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-3)', marginBottom: 8 }}>
                 Describe your room
               </label>
@@ -381,7 +379,7 @@ export default function HomePage() {
               />
             </div>
 
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: 12 }}>
               <label style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-3)', marginBottom: 8 }}>
                 Style preference
               </label>
@@ -393,11 +391,11 @@ export default function HomePage() {
                     onClick={() => setStyle(s.id)}
                     style={{
                       display: 'flex', alignItems: 'center', gap: 5,
-                      padding: '6px 14px', borderRadius: 20, fontSize: 13, fontWeight: 600,
+                      padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600,
                       border: `1.5px solid ${style === s.id ? '#e11d48' : 'var(--border-m)'}`,
                       background: style === s.id ? '#fce8ea' : '#fafaf9',
-                      color: style === s.id ? '#e11d48' : 'var(--ink-2)',
-                      cursor: 'pointer', transition: 'all 0.15s ease',
+                      color: style === s.id ? '#be123c' : 'var(--ink-2)',
+                      minHeight: 44, cursor: 'pointer', transition: 'background 0.15s, border-color 0.15s, color 0.15s, transform 0.12s',
                     }}
                   >
                     <span style={{ fontSize: 14 }}>{s.emoji}</span>
@@ -410,7 +408,7 @@ export default function HomePage() {
             <Link
               href={`/visualise?room=${encodeURIComponent(room)}&style=${style}`}
               className="btn-rose"
-              style={{ width: '100%', justifyContent: 'center', display: 'flex', textDecoration: 'none', fontSize: 16, padding: '15px 28px' }}
+              style={{ width: '100%', justifyContent: 'center', display: 'flex', textDecoration: 'none', fontSize: 16, padding: '12px 28px' }}
             >
               Generate my design — free
               <ArrowRight size={18} />
@@ -630,7 +628,7 @@ export default function HomePage() {
       {/* ── Final CTA ── */}
       <section style={{ maxWidth: 700, margin: '0 auto', padding: '0 24px 80px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
         <div className="card-hc" style={{ padding: '56px 40px', background: 'linear-gradient(135deg, #fff9f9 0%, #fff 100%)', borderColor: 'rgba(225,29,72,0.15)' }}>
-          <span className="badge-rose" style={{ marginBottom: 20, display: 'inline-flex' }}>
+          <span className="badge-rose" style={{ marginBottom: 12, display: 'inline-flex' }}>
             <Sparkles size={11} />
             Start in 30 seconds
           </span>
