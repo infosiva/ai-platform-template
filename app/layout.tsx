@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Script from 'next/script'
 import FloatingChatWrapper from '@/components/FloatingChatWrapper'
+import FeedbackWidget from '@/components/FeedbackWidget'
+import { AnimatedBg } from '@/components/AnimatedBg'
+import { loadSiteTheme, buildThemeStyleTag, buildGa4Snippet } from '@/lib/theme-loader'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
 export const metadata: Metadata = {
@@ -28,10 +31,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const theme = await loadSiteTheme('template')
+  const themeCss = buildThemeStyleTag(theme)
+  const ga4 = buildGa4Snippet(theme)
   return (
     <html lang="en">
       <head>
+        {themeCss && <style dangerouslySetInnerHTML={{ __html: themeCss }} />}
+        {ga4 && <script dangerouslySetInnerHTML={{ __html: ga4 }} />}
         <meta name="google-adsense-account" content="ca-pub-4237294630161176" />
         <Script
           async
@@ -56,11 +64,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body style={{ minHeight: '100svh', overscrollBehavior: 'none' }}>
+        <AnimatedBg theme={theme} fallback="none" />
         <main style={{ position: 'relative', zIndex: 10 }}>
           <MotionProvider>{children}</MotionProvider>
         </main>
         <Script defer data-site="homecanvas.app" src="/t.js" strategy="afterInteractive" />
         <FloatingChatWrapper />
+        <FeedbackWidget siteName="template" />
       </body>
     </html>
   )
